@@ -8,15 +8,12 @@ use Livewire\Component;
 
 class ListUsers extends Component
 {
-    public $name;
-    public $email;
-    public $password;
-    public $password_confirmation;
 
     public $state = [];
-
+    public $showEditModal = false;
     public function addNew()
     {
+        $this-> showEditModal = false;
         $this->dispatchBrowserEvent('show-form');
     }
 
@@ -33,6 +30,11 @@ class ListUsers extends Component
        session()->flash('message', 'User Create SuccessFully');
         $this->dispatchBrowserEvent('hide-form', ['message' => 'User added Successfully']);
        return redirect()->back();
+    }
+
+    public function edit(User $user){
+        $this -> showEditModal = true;
+        $this->dispatchBrowserEvent('show-form');
     }
 
     public function render()
