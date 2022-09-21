@@ -52,14 +52,18 @@
                                             <a href="" wire:click.prevent="edit({{$user}})">
                                                 <i class="fa fa-edit mr-2"></i>
                                             </a>
-                                            <a href="">
+                                            <a href="" wire:click.prevent="confirmUserRemove({{$user->id}})">
                                                 <i class="fa fa-trash text-danger"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
+
                             </table>
+                        </div>
+                        <div class="card-footer d-flex justify-content-end">
+                            {{ $users->links() }}
                         </div>
                     </div>
 
@@ -77,7 +81,7 @@
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
-            <form wire:submit.prevent="createUser">
+            <form wire:submit.prevent="{{$showEditModal ? 'updateUser' : 'createUser'}}">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
@@ -137,10 +141,34 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">
+                        @if($showEditModal)
+                            <span>Save Change</span>
+                        @else
+                            <span>Save</span>
+                        @endif
+                    </button>
                 </div>
             </div>
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h3>Delete User</h3>
+               </div>
+               <div class="modal-body">
+                   <h4>Are you want to delete User ?</h4>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                   <button type="button" wire:click.prevent="deleteUser" class="btn btn-danger">Delete User</button>
+               </div>
+           </div>
         </div>
     </div>
 </div>

@@ -62,9 +62,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $('#form').modal('show');
     })
 
-    // window.addEventListener('hide-form', event => {
-    //     $('#form').modal('hide');
-    // })
+    window.addEventListener('show-delete-modal', event => {
+        $('#confirmationModal').modal('show');
+    })
+
+    window.addEventListener('hide-delete-modal', event => {
+        $('#confirmationModal').modal('show');
+        toastr.success(event.detail.message, 'Success!');
+    })
+
 </script>
 <script>
     $(document).ready(function (){
