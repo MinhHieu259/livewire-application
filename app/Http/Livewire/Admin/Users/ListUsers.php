@@ -71,7 +71,7 @@ class ListUsers extends AdminComponent
 
     public function render()
     {
-        $users = User::latest()->paginate(5);
+        $users = User::latest()->paginate(2);
         return view('livewire.admin.users.list-users', [
             'users' => $users
         ]);
