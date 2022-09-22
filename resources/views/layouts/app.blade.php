@@ -86,8 +86,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         })
     })
 </script>
+<script src="{{asset('backend/plugins/moment/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
+@stack('js')
 <livewire:scripts />
 </body>
 </html>

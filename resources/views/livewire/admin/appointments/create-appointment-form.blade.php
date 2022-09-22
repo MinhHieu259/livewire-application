@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-
+                    <form wire:submit.prevent="createAppointment" autocomplete="off">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Add New Appointment</h3>
@@ -29,11 +29,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client">Client:</label>
-                                            <select class="form-control @error('client_id') is-invalid @enderror">
-                                                <option value="">Select Client</option>
-
+                                            <select wire:model.defer="state.client_id" class="form-control @error('client_id') is-invalid @enderror">
+                                                <option>---Select Client---</option>
+                                                @foreach($clients as $client)
+                                                <option value="{{$client->id}}">{{$client->name}}</option>
+                                                @endforeach
                                             </select>
-
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -59,21 +60,8 @@
                                         </div>
 @enderror
                                         </div> -->
-                                        <div class="form-group">
-                                            <label>Color picker with addon:</label>
-
-                                            <div class="input-group" id="colorPicker">
-                                                <input type="text" name="color" class="form-control">
-
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
-                                                </div>
-                                            </div>
-                                            <!-- /.input group -->
-                                        </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -82,7 +70,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                                 </div>
-
+                                                <x-datepicker wire:model.defer="state.date" id="appointmentDate"/>
                                             </div>
                                         </div>
                                     </div>
@@ -94,17 +82,31 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                                 </div>
-
+                                                <x-timepicker wire:model.defer="state.time" id="appointmentTime"/>
                                             </div>
                                         </div>
                                     </div>
+
+{{--                                    <div class="col-md-6">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="appointmentEndTime">Appointment End Time</label>--}}
+{{--                                            <div class="input-group mb-3">--}}
+{{--                                                <div class="input-group-prepend">--}}
+{{--                                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>--}}
+{{--                                                </div>--}}
+{{--                                                <x-timepicker wire:model.defer="state.appointment_end_time" id="appointmentEndTime"/>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
+
+
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="form-group">
+                                        <div wire:ignore class="form-group">
                                             <label for="note">Note:</label>
-                                            <textarea id="note" data-note="@this" class="form-control"></textarea>
+                                            <textarea wire:model.defer="state.note" id="note" data-note="@this" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -134,8 +136,30 @@
                                 <button id="submit" type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i> Save</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    @push('js')
+
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#note' ) )
+                .then( editor => {
+                    // editor.model.document.on('change:data', () => {
+                    //    let note = $('#note').data('note')
+                    //     eval(note).set('state.note', editor.getData())
+                    // })
+                    document.querySelector('#submit').addEventListener('click', () => {
+                        let note = $('#note').data('note')
+                        eval(note).set('state.note', editor.getData())
+                    })
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    @endpush
 </div>
