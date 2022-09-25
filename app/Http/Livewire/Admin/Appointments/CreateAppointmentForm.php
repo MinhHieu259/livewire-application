@@ -20,7 +20,7 @@ class CreateAppointmentForm extends Component
             'date' => 'required',
             'time' => 'required',
             'note' => 'nullable',
-            'status' => 'required',
+            'status' => 'required|in:SCHEDULED,CLOSED',
         ],
         [
             'client_id.required' => 'The client field is required !!!'

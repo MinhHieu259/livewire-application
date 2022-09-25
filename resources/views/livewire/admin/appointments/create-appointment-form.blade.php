@@ -92,7 +92,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                                 </div>
-                                                <x-timepicker wire:model.defer="state.time" id="appointmentTime"/>
+                                                <x-timepicker wire:model.defer="state.time" id="appointmentTime" :error="'time'"/>
+                                                @error('time')
+                                                <div class="invalid-feedback">
+                                                    {{$message}}
+                                                </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>

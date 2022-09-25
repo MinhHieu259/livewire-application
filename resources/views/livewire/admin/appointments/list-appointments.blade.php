@@ -47,14 +47,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($appointments as $appointment)
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Name</td>
-                                        <td>Date</td>
-                                        <td>Time</td>
-                                        <td>Status</td>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{$appointment->client->name}}</td>
+                                        <td>{{$appointment->date}}</td>
+                                        <td>{{$appointment->time}}</td>  {{--ham trong AppServiceProvider--}}
+                                        <td> <span class="badge badge-{{$appointment->status_badge}}">{{$appointment->status}}</span></td>
                                         <td>
-                                            <a href="">
+                                            <a href="{{route('admin.appointments.edit', $appointment)}}">
                                                 <i class="fa fa-edit mr-2"></i>
                                             </a>
                                             <a href="">
@@ -62,6 +63,7 @@
                                             </a>
                                         </td>
                                     </tr>
+                                @endforeach
                                 </tbody>
 
                             </table>
