@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/toastr/toastr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <livewire:styles />
+   @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -94,7 +95,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/plugins/moment/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('backend/plugins/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-
 @stack('js')
 <livewire:scripts />
 </body>

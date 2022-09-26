@@ -58,7 +58,7 @@
                                             <a href="{{route('admin.appointments.edit', $appointment)}}">
                                                 <i class="fa fa-edit mr-2"></i>
                                             </a>
-                                            <a href="">
+                                            <a href="" wire:click.prevent="confirmAppointmentRemoval({{$appointment->id}})">
                                                 <i class="fa fa-trash text-danger"></i>
                                             </a>
                                         </td>
@@ -83,23 +83,5 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-
-
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Delete User</h3>
-                </div>
-                <div class="modal-body">
-                    <h4>Are you want to delete User ?</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" wire:click.prevent="deleteUser" class="btn btn-danger">Delete User</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-confirmation-alert/>
 </div>
