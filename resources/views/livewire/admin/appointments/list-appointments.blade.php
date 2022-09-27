@@ -1,4 +1,5 @@
 <div>
+    <x-loading-indicator />
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -28,10 +29,28 @@
             {{--            @endif--}}
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex justify-content-end mb-2">
-                        <a href="{{route('admin.appointments.create')}}">
-                            <button class="btn btn-primary">Add New Appointments</button>
-                        </a>
+                    <div class="d-flex justify-content-between mb-2">
+                       <div>
+                           <a href="{{route('admin.appointments.create')}}">
+                               <button class="btn btn-primary">Add New Appointments</button>
+                           </a>
+                       </div>
+                        <div class="btn-group">
+                            <button wire:click="filterAppointmentsByStatus" type="button" class="btn {{ is_null($status) ? 'btn-secondary' : 'btn-default' }}">
+                                <span class="mr-1">All</span>
+                                <span class="badge badge-pill badge-info">{{$appointmentCount}}</span>
+                            </button>
+
+                            <button wire:click="filterAppointmentsByStatus('scheduled')" type="button" class="btn {{ ($status === 'scheduled') ? 'btn-secondary' : 'btn-default' }}">
+                                <span class="mr-1">Scheduled</span>
+                                <span class="badge badge-pill badge-primary">{{$cheduledAppointmentCount}}</span>
+                            </button>
+
+                            <button wire:click="filterAppointmentsByStatus('closed')" type="button" class="btn {{ ($status === 'closed') ? 'btn-secondary' : 'btn-default' }}">
+                                <span class="mr-1">Closed</span>
+                                <span class="badge badge-pill badge-success">{{$closeAppointmentCount}}</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -69,7 +88,7 @@
                             </table>
                         </div>
                         <div class="card-footer d-flex justify-content-end">
-
+                            {!! $appointments->links() !!}
                         </div>
                     </div>
 

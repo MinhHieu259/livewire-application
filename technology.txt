@@ -1,0 +1,3 @@
+toastr: hiển thị alert
+alpine: để sử dụng các thẻ x-data, x-show
+load-awesome

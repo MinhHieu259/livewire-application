@@ -18,14 +18,14 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-{{--            @if(session()->has('message'))--}}
-{{--            <div class="alert alert-success alert-dismissible fade show" role="alert">--}}
-{{--                <strong><i class="fa fa-check-circle mr-1"></i>{{session('message')}}</strong>--}}
-{{--                <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-{{--                    <span aria-hidden="true">&times;</span>--}}
-{{--                </button>--}}
-{{--            </div>--}}
-{{--            @endif--}}
+            {{--            @if(session()->has('message'))--}}
+            {{--            <div class="alert alert-success alert-dismissible fade show" role="alert">--}}
+            {{--                <strong><i class="fa fa-check-circle mr-1"></i>{{session('message')}}</strong>--}}
+            {{--                <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+            {{--                    <span aria-hidden="true">&times;</span>--}}
+            {{--                </button>--}}
+            {{--            </div>--}}
+            {{--            @endif--}}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between mb-2">
@@ -36,19 +36,23 @@
                         <div class="card-body">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Register Date</th>
-                                        <th scope="col">Options</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Register Date</th>
+                                    <th scope="col">Options</th>
+                                </tr>
                                 </thead>
                                 <tbody wire:loading.class="text-muted">
                                 @forelse($users as $user)
                                     <tr>
                                         <th scope="row">{{$loop -> iteration}}</th>
-                                        <td>{{$user->name}}</td>
+                                        <td>
+                                            <img src="{{$user->avatar_url}}" class="img img-circle mr-1"
+                                                 style="width: 50px">
+                                            {{$user->name}}
+                                        </td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->created_at->toFormattedDate()}}</td>
                                         <td>
@@ -63,7 +67,9 @@
                                 @empty
                                     <tr class="text-center">
                                         <td colspan="5">
-                                            <img src="https://img.freepik.com/premium-vector/file-found-illustration-with-confused-people-holding-big-magnifier-search-no-result_258153-336.jpg?w=2000" alt="No result" width="300">
+                                            <img
+                                                src="https://img.freepik.com/premium-vector/file-found-illustration-with-confused-people-holding-big-magnifier-search-no-result_258153-336.jpg?w=2000"
+                                                alt="No result" width="300">
                                             No result found
                                         </td>
 
@@ -90,27 +96,29 @@
     <!-- /.content -->
     <!-- Modal -->
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" wire:ignore.self>
+         aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <form wire:submit.prevent="{{$showEditModal ? 'updateUser' : 'createUser'}}">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        @if($showEditModal)
-                        <span>Edit User</span>
-                        @else
-                        <span>Add New User</span>
-                        @endif
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            @if($showEditModal)
+                                <span>Edit User</span>
+                            @else
+                                <span>Add New User</span>
+                            @endif
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" wire:model.defer="state.name" class="form-control @error('name') is-invalid" @enderror id="name" aria-describedby="nameHelp" placeholder="Enter name">
+                            <input type="text" wire:model.defer="state.name"
+                                   class="form-control @error('name') is-invalid" @enderror id="name"
+                                   aria-describedby="nameHelp" placeholder="Enter name">
                             @error('name')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -120,7 +128,9 @@
 
                         <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="text" wire:model.defer="state.email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                            <input type="text" wire:model.defer="state.email"
+                                   class="form-control @error('email') is-invalid @enderror" id="email"
+                                   aria-describedby="emailHelp" placeholder="Enter email">
                             @error('email')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -130,7 +140,9 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" wire:model.defer="state.password" class="form-control @error('password') is-invalid" @enderror id="password" placeholder="Password">
+                            <input type="password" wire:model.defer="state.password"
+                                   class="form-control @error('password') is-invalid" @enderror id="password"
+                                   placeholder="Password">
                             @error('password')
                             <div class="invalid-feedback">
                                 {{$message}}
@@ -140,27 +152,61 @@
 
                         <div class="form-group">
                             <label for="passwordConfirmation">Confirm Password</label>
-                            <input type="password" wire:model.defer="state.password_confirmation" class="form-control @error('password_confirmation') is-invalid" @enderror id="passwordConfirmation" placeholder="Confirm Password">
+                            <input type="password" wire:model.defer="state.password_confirmation"
+                                   class="form-control @error('password_confirmation') is-invalid"
+                                   @enderror id="passwordConfirmation" placeholder="Confirm Password">
                             @error('password_confirmation')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="passwordConfirmation">Profile Photo</label>
+                            <div class="custom-file">
+                                <div x-data="{isUploading: false, progress: 5}"
+                                     x-on:livewire-upload-start="isUploading = true"
+                                     x-on:livewire-upload-finish="isUploading = false; progress = 5"
+                                     x-on:livewire-upload-error="isUploading = false"
+                                     x-on:livewire-upload-progress="progress = $event.detail.progress"
+                                >
+                                    <input wire:model="photo" type="file" class="custom-file-input" id="customFile">
+                                    <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar"
+                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                             x-bind:style="`width:${progress}%`">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="custom-file-label" for="customFile">
+                                    @if($photo)
+                                        {{$photo->getClientOriginalName()}}
+                                    @else
+                                        Choose Image
+                                    @endif
+                                </label>
+                            </div>
+                            @if($photo)
+                                <img src="{{$photo->temporaryUrl()}}" class="img d-block mt-2 w-100">
+                            @else
+                                <img src="{{$state['avatar_url'] ?? ''}}" class="img d-block mb-2 w-100">
+                            @endif
+                        </div>
 
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            @if($showEditModal)
+                                <span>Save Change</span>
+                            @else
+                                <span>Save</span>
+                            @endif
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        @if($showEditModal)
-                            <span>Save Change</span>
-                        @else
-                            <span>Save</span>
-                        @endif
-                    </button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -168,18 +214,18 @@
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
-           <div class="modal-content">
-               <div class="modal-header">
-                   <h3>Delete User</h3>
-               </div>
-               <div class="modal-body">
-                   <h4>Are you want to delete User ?</h4>
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                   <button type="button" wire:click.prevent="deleteUser" class="btn btn-danger">Delete User</button>
-               </div>
-           </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Delete User</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you want to delete User ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" wire:click.prevent="deleteUser" class="btn btn-danger">Delete User</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
