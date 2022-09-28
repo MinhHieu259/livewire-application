@@ -15,31 +15,60 @@ class ListAppointments extends AdminComponent
 
     protected $queryString = ['status'];
 
-    public function confirmAppointmentRemoval($appointmentId){
+    public $selectedRows = [];
+
+    public $selectPageRows = false;
+
+    public function confirmAppointmentRemoval($appointmentId)
+    {
         $this->appointmentIdBeingRemoved = $appointmentId;
 
         $this->dispatchBrowserEvent('show-delete-confirmation');
     }
 
-    public function deleteAppointment() {
+    public function deleteAppointment()
+    {
         $appointment = Appointment::findOrFail($this->appointmentIdBeingRemoved);
         $appointment->delete();
         $this->dispatchBrowserEvent('deleted', ['message' => 'Appointment deleted successfully']);
     }
 
-    public function filterAppointmentsByStatus($status = null) {
+    public function filterAppointmentsByStatus($status = null)
+    {
         $this->resetPage();
         $this->status = $status;
     }
 
-    public function render()
+    public function updatedSelectPageRows($value)
     {
-        $appointments = Appointment::with('client')
-            ->when($this->status, function($query, $status) {
+        if ($value) {
+            $this->selectedRows = $this->appointments->pluck('id')->map(function ($id) {
+                return (string)$id;
+            });
+        } else {
+            $this->reset(['selectedRows', 'selectPageRows']);
+        }
+    }
+
+    public function getAppointmentsProperty()
+    {
+        return Appointment::with('client')
+            ->when($this->status, function ($query, $status) {
                 return $query->where('status', $status);
             })
             ->latest()
-            ->paginate(2);
+            ->paginate(5);
+    }
+
+    public function deleteSelectedRows()
+    {
+        Appointment::whereIn('id', $this->selectedRows)->delete();
+        $this->dispatchBrowserEvent('deleted', ['message' => 'All selected appointment got deleted']);
+    }
+
+    public function render()
+    {
+        $appointments = $this->appointments;
         $appointmentCount = Appointment::count();
         $cheduledAppointmentCount = Appointment::where('status', 'scheduled')->count();
         $closeAppointmentCount = Appointment::where('status', 'closed')->count();

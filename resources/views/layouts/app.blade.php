@@ -17,8 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/toastr/toastr.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <livewire:styles/>
     @stack('styles')
 </head>
@@ -63,6 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/dist/js/adminlte.min.js')}}"></script>
 <!-- Để dùng các thẻ x-data, x-show, .... -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
 <script>
     window.addEventListener('show-form', event => {
         $('#form').modal('show');
