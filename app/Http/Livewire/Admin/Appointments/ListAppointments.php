@@ -60,10 +60,25 @@ class ListAppointments extends AdminComponent
             ->paginate(5);
     }
 
+    public function markAllAsScheduled()
+    {
+        Appointment::whereIn('id', $this->selectedRows)->update(['status' => 'SCHEDULED']);
+        $this->dispatchBrowserEvent('updated', ['message' => 'All selected appointment got updated scheduled']);
+        $this->reset(['selectedRows', 'selectPageRows']);
+    }
+
+    public function markAllAsClosed()
+    {
+        Appointment::whereIn('id', $this->selectedRows)->update(['status' => 'CLOSED']);
+        $this->dispatchBrowserEvent('updated', ['message' => 'All selected appointment got updated closed']);
+        $this->reset(['selectedRows', 'selectPageRows']);
+    }
+
     public function deleteSelectedRows()
     {
         Appointment::whereIn('id', $this->selectedRows)->delete();
         $this->dispatchBrowserEvent('deleted', ['message' => 'All selected appointment got deleted']);
+        $this->reset(['selectedRows', 'selectPageRows']);
     }
 
     public function render()

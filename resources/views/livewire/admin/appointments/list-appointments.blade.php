@@ -34,6 +34,7 @@
                             <a href="{{route('admin.appointments.create')}}">
                                 <button class="btn btn-primary">Add New Appointments</button>
                             </a>
+                            @if($selectedRows)
                             <div class="btn-group ml-2">
                                 <button type="button" class="btn btn-default">Bulks Action</button>
                                 <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
@@ -41,11 +42,12 @@
                                 </button>
                                 <div class="dropdown-menu" role="menu" style="">
                                     <a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a>
-                                    <a class="dropdown-item" href="#">Mark as Scheduled</a>
-                                    <a class="dropdown-item" href="#">Mask as Closed</a>
+                                    <a wire:click.prevent="markAllAsScheduled" class="dropdown-item" href="#">Mark as Scheduled</a>
+                                    <a wire:click.prevent="markAllAsClosed" class="dropdown-item" href="#">Mask as Closed</a>
                                 </div>
                             </div>
-                            <span class="ml-2">Selected 10 Appointment</span>
+                            <span class="ml-2">Selected {{count($selectedRows)}} {{\Illuminate\Support\Str::plural('appointment', count($selectedRows))}}</span>
+                            @endif
                         </div>
                         <div class="btn-group">
                             <button wire:click="filterAppointmentsByStatus" type="button"
@@ -115,7 +117,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            @dump($selectedRows)
                         </div>
                         <div class="card-footer d-flex justify-content-end">
                             {!! $appointments->links() !!}
