@@ -12,6 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    const ROLE_ADMIN = 'admin';
+    const ROLE_USER = 'user';
 
     /**
      * The attributes that are mass assignable.
@@ -51,10 +53,27 @@ class User extends Authenticatable
         'avatar_url'
     ];
 
-    public function getAvatarUrlAttribute() {
-        if($this->avatar && Storage::disk('avatars')->exists($this->avatar)){
-            return asset('storage/avatars/'.$this->avatar);
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar && Storage::disk('avatars')->exists($this->avatar)) {
+            return asset('storage/avatars/' . $this->avatar);
         }
         return asset('no_image.jpg');
+    }
+
+    public function isAdmin()
+    {
+        if ($this->role != self::ROLE_ADMIN) {
+            return false;
+        }
+        return true;
+    }
+
+    public function isUser()
+    {
+        if ($this->role != self::ROLE_USER) {
+            return false;
+        }
+        return true;
     }
 }
