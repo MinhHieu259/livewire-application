@@ -18,7 +18,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/toastr/toastr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
     @stack('styles')
+
+    <style>
+        .custom-error .select2-selection {
+            border: none;
+        }
+    </style>
     <livewire:styles/>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -106,6 +114,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script type="text/javascript"
         src="{{asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="{{asset('backend/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 @stack('js')
 <livewire:scripts/>
 </body>

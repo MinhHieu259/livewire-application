@@ -47,16 +47,15 @@
                                     <div class="col-md-6">
                                         <div wire:ignore class="form-group">
                                             <label>Select Team Members</label>
-                                            <select wire:model="state.members" class="select2" multiple="multiple"
-                                                    data-placeholder="Select a State" style="width: 100%;">
-                                                <option>Alabama</option>
+                                            <x-inputs.select2 wire:model="state.members" id="members" placeholder="Select Members">
+                                                <option>One</option>
                                                 <option>Alaska</option>
                                                 <option>California</option>
                                                 <option>Delaware</option>
                                                 <option>Tennessee</option>
                                                 <option>Texas</option>
                                                 <option>Washington</option>
-                                            </select>
+                                            </x-inputs.select2>
                                         </div>
                                     </div>
                                 </div>
