@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div wire:ignore class="form-group">
+                                        <div class="form-group">
                                             <label>Select Team Members</label>
                                             <x-inputs.select2 wire:model="state.members" id="members" placeholder="Select Members">
                                                 <option>One</option>
@@ -172,33 +172,39 @@
         </div>
     </div>
     @push('js')
-        <script>
-            $(function () {
-                $('.select2').select2({
-                    theme: 'bootstrap4'
-                }).on('change', function () {
-                @this.set('state.members', $(this).val());
-                });
-            })
-        </script>
+{{--        <script>--}}
+{{--            $(function () {--}}
+{{--                $('.select2').select2({--}}
+{{--                    theme: 'bootstrap4'--}}
+{{--                }).on('change', function () {--}}
+{{--                @this.set('state.members', $(this).val());--}}
+{{--                });--}}
+{{--            })--}}
+{{--        </script>--}}
 
         <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
         <script>
-            ClassicEditor
-                .create(document.querySelector('#note'))
-                .then(editor => {
-                    // editor.model.document.on('change:data', () => {
-                    //    let note = $('#note').data('note')
-                    //     eval(note).set('state.note', editor.getData())
-                    // })
-                    document.querySelector('#submit').addEventListener('click', () => {
-                        let note = $('#note').data('note')
-                        eval(note).set('state.note', editor.getData())
-                    })
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            // ClassicEditor
+            //     .create(document.querySelector('#note'))
+            //     .then(editor => {
+            //         // editor.model.document.on('change:data', () => {
+            //         //    let note = $('#note').data('note')
+            //         //     eval(note).set('state.note', editor.getData())
+            //         // })
+            //         document.querySelector('#submit').addEventListener('click', () => {
+            //             let note = $('#note').data('note')
+            //             eval(note).set('state.note', editor.getData())
+            //         })
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
+            ClassicEditor.create(document.querySelector('#note'))
+            $('form').submit(function () {
+            @this.set('state.members', $('#members').val());
+            @this.set('state.note', $('#note').val());
+            @this.set('state.color', $('[name=color]').val());
+            })
         </script>
     @endpush
 </div>

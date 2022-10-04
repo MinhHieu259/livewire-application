@@ -11,3 +11,5 @@ vao config/app them: App\Providers\FortifyServiceProvider::class --> vao class n
                                                                                                 });
 trong ham boot
 vao RouteServiceProvider doi duong dan home khi login vao
+
+ maatwebsite/excel: composer require maatwebsite/excel (xuat file excel)
