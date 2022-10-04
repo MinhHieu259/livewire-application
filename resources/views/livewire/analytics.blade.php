@@ -24,9 +24,9 @@
             <h2 class="mt-2 text-xl font-semibold">Clovon</h2>
         </div>
         <div class="flex flex-col items-center mt-16">
-            <div>
+            <div wire:poll="fetchData">
                 <div class="animate__animated animate__pulse animate__infinite">
-                    <span class="text-6xl font-semibold">100</span>
+                    <span class="text-6xl font-semibold">{{$recentSubscribers}}</span>
                 </div>
             </div>
             <span class="mt-3 text-xl text-gray-700">Subscribers</span>
@@ -37,3 +37,35 @@
         <div class="px-10" id="chart"></div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        var options = {
+            chart: {
+                type: 'line',
+                height: '250px',
+                animations: {
+                    enabled: false
+                }
+            },
+            series: [{
+                name: 'Subscribers',
+                data: @json($subscribers)
+            }],
+            xaxis: {
+                categories: @json($days)
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+        chart.render();
+        document.addEventListener('livewire:load', () => {
+            @this.on('refreshChart', (chartData) => {
+                chart.updateSeries([{
+                    data: chartData.seriesData
+                }])
+            })
+        })
+    </script>
+@endpush
