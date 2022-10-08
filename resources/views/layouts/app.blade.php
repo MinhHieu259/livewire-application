@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
     <livewire:styles/>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini {{setting('sidebar_collapse') ? 'sidebar-collapse' : ''}}">
 <div class="wrapper">
 
     <!-- Navbar -->

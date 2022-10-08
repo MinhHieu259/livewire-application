@@ -68,3 +68,11 @@
         </div>
     </section>
 </div>
+
+@push('js')
+    <script>
+        $('#sidebar_collapse').on('change', function () {
+            $('body').toggleClass('sidebar-collapse')
+        })
+    </script>
+@endpush

@@ -4,6 +4,7 @@ alpine: để sử dụng các thẻ x-data, x-show
 
 load-awesome
 
+---login vs fortify---
 login dung package Fortify: composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 vao config/app them: App\Providers\FortifyServiceProvider::class --> vao class nay them  Fortify::loginView(function () {
@@ -11,5 +12,20 @@ vao config/app them: App\Providers\FortifyServiceProvider::class --> vao class n
                                                                                                 });
 trong ham boot
 vao RouteServiceProvider doi duong dan home khi login vao
+---login---
 
  maatwebsite/excel: composer require maatwebsite/excel (xuat file excel)
+
+ ---thêm file Helpers.php---
+ tạo file Helpers.php trong app: vào trong composer.json thêm:
+                                                                 "files" : [
+                                                                     "app/Helpers.php"
+                                                                 ]
+trong mục autoload
+Chạy câu lệnh: composer dump-autoload
+---thêm file Helpers.php---
+
+--- laravel debug bar: để có thanh debug ---
+composer require barryvdh/laravel-debugbar --dev
+--- laravel debug bar:để có thanh debug ---
+

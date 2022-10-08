@@ -16,4 +16,8 @@ class Setting extends Model
         'footer_text',
         'sidebar_collapse'
     ];
+
+    protected $casts = [
+        'sidebar_collapse' => 'boolean'
+    ];
 }

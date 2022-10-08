@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class UpdateSetting extends Component
@@ -21,6 +22,7 @@ class UpdateSetting extends Component
         } else {
             Setting::create($this->state);
         }
+        Cache::forget('setting');
         $this->dispatchBrowserEvent('updated', ['message' => 'Settings updated successfully']);
     }
 
