@@ -10,8 +10,13 @@ class UpdateSetting extends Component
 {
     public $state = [];
 
-    public function mount(){
-        $this->state = Setting::first()->toArray();
+    public function mount()
+    {
+        $setting = Setting::first();
+
+        if ($setting) {
+           $this->state = $setting->toArray();
+        }
     }
 
     public function updateSetting()

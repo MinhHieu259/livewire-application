@@ -1,3 +1,8 @@
+-- lệnh thêm field nhanh ---
+php artisan make:migration add_field_to_name_table
+-- lệnh thêm field nhanh ---
+
+
 toastr: hiển thị alert
 
 alpine: để sử dụng các thẻ x-data, x-show
@@ -28,4 +33,8 @@ Chạy câu lệnh: composer dump-autoload
 --- laravel debug bar: để có thanh debug ---
 composer require barryvdh/laravel-debugbar --dev
 --- laravel debug bar:để có thanh debug ---
+
+--livewire sortable: để kéo thả sắp xếp thứ tự các hàng---
+link web: https://github.com/livewire/sortable
+--livewire sortable: để kéo thả sắp xếp thứ tự các hàng---
 

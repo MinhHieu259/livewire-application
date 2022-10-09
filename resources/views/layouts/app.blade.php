@@ -17,7 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/toastr/toastr.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
     @stack('styles')
@@ -68,9 +69,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('backend/dist/js/adminlte.min.js')}}"></script>
+@stack('alpine-plugins')
 <!-- Để dùng các thẻ x-data, x-show, .... -->
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
     window.addEventListener('show-form', event => {
         $('#form').modal('show');
@@ -93,9 +94,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     window.addEventListener('updated', event => {
         toastr.success(event.detail.message, 'Success!')
     })
-
-
 </script>
+
+<script>
+    $('[x-ref="profileLink"]').on('click', function(){
+        localStorage.setItem('_x_currentTab', '"profile"')
+    })
+
+    $('[x-ref="changePasswordLink"]').on('click', function(){
+        localStorage.setItem('_x_currentTab', '"changePassword"')
+    })
+</script>
+
 <script>
     $(document).ready(function () {
         toastr.options = {
@@ -117,5 +127,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
 @stack('js')
 <livewire:scripts/>
+<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
 </body>
 </html>

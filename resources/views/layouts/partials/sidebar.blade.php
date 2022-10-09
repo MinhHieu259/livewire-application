@@ -14,7 +14,7 @@
                 <img src="{{auth()->user()->avatar_url}}" id="profileImage" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                <a href="#" class="d-block" x-ref="username">{{auth()->user()->name}}</a>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('admin.profile.edit')}}"
+                    <a x-ref="profileLink" href="{{route('admin.profile.edit')}}"
                        class="nav-link {{request() -> is('admin/profile') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
