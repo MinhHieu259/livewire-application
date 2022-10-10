@@ -34,32 +34,53 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">
+                                        Name
+                                        <span wire:click="sortBy('name')" class="float-right text-sm"
+                                              style="cursor: pointer">
+                                        <i class="fa fa-arrow-up {{$sortColumnName === 'name' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                                        <i class="fa fa-arrow-down {{$sortColumnName === 'name' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                                    </span>
+                                    </th>
+                                    <th scope="col">
+                                        Email
+                                        <span wire:click="sortBy('email')" class="float-right text-sm"
+                                              style="cursor: pointer">
+                                        <i class="fa fa-arrow-up {{$sortColumnName === 'email' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                                        <i class="fa fa-arrow-down {{$sortColumnName === 'email' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                                    </span>
+                                    </th>
                                     <th scope="col">Register Date</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Options</th>
                                 </tr>
                                 </thead>
                                 <tbody wire:loading.class="text-muted">
-                                @forelse($users as $user)
+                                @forelse($users as $index => $user)
                                     <tr>
-                                        <th scope="row">{{$loop -> iteration}}</th>
+                                        <th scope="row">{{$users->firstItem() + $index}}</th>
                                         <td>
                                             <img src="{{$user->avatar_url}}" class="img img-circle mr-1"
                                                  style="width: 50px">
                                             {{$user->name}}
                                         </td>
                                         <td>{{$user->email}}</td>
-                                        <td>{{$user->created_at->toFormattedDate()}}</td>
                                         <td>
-                                            <select name="" id="" class="form-control" wire:change="changeRole({{$user}}, $event.target.value)">
-                                                <option value="admin" {{$user->role === 'admin' ? 'selected' : ''}}>ADMIN</option>
-                                                <option value="user" {{$user->role === 'user' ? 'selected' : ''}}>USER</option>
+                                            {{--Dấu ?, khi ngày trống thi nó trả về null và không gọi tới hàm toFormattedDate()--}}
+                                            {{$user->created_at?->toFormattedDate() ?? 'N/A'}}
+                                        </td>
+                                        <td>
+                                            <select name="" id="" class="form-control"
+                                                    wire:change="changeRole({{$user}}, $event.target.value)">
+                                                <option value="admin" {{$user->role === 'admin' ? 'selected' : ''}}>
+                                                    ADMIN
+                                                </option>
+                                                <option value="user" {{$user->role === 'user' ? 'selected' : ''}}>USER
+                                                </option>
                                             </select></td>
                                         <td>
                                             <a href="" wire:click.prevent="edit({{$user}})">

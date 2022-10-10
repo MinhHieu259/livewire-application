@@ -20,6 +20,9 @@ class ListUsers extends AdminComponent
     public $userIdBeingRemove = null;
     public $searchTerm = null;
     public $photo;
+    public $sortColumnName = 'created_at';
+    public $sortDirection = 'desc';
+    protected $queryString = ['searchTerm' => ['except' => '']];
 
     public function addNew()
     {
@@ -92,7 +95,8 @@ class ListUsers extends AdminComponent
         $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'User Delete SuccessFully']);
     }
 
-    public function changeRole(User $user, $role) {
+    public function changeRole(User $user, $role)
+    {
         Validator::make(['role' => $role], [
             'role' => [
                 'required',
@@ -100,16 +104,37 @@ class ListUsers extends AdminComponent
             ],
         ])->validate();
         $user->update(['role' => $role]);
-        $this->dispatchBrowserEvent('updated', ['message' => 'Role changed to '.$role.' successfully']);
+        $this->dispatchBrowserEvent('updated', ['message' => 'Role changed to ' . $role . ' successfully']);
+    }
+
+    public function sortBy($columnName)
+    {
+        if ($this->sortColumnName === $columnName) {
+            $this->sortDirection = $this->swapSortDirection();
+        }
+
+        $this->sortColumnName = $columnName;
+    }
+
+    public function swapSortDirection()
+    {
+        return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+    public function updatedsearchTerm()
+    {
+        $this->resetPage();
     }
 
     public function render()
     {
         $users = User::query()->where('name', 'like', '%' . $this->searchTerm . '%')
             ->orWhere('email', 'like', '%' . $this->searchTerm . '%')
-            ->latest()->paginate(5);
+            ->orderBy($this->sortColumnName, $this->sortDirection)->paginate(2);
         return view('livewire.admin.users.list-users', [
             'users' => $users
         ]);
+
+
     }
 }

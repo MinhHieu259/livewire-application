@@ -4,7 +4,7 @@
        data-toggle="datetimepicker" data-target="#{{ $id }}"
        onchange="this.dispatchEvent(new InputEvent('input'))"/>
 
-@push('js')
+@push('before-livewire-scripts')
     <script type="text/javascript">
 
             $('#{{$id}}').datetimepicker({

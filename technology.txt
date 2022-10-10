@@ -38,3 +38,16 @@ composer require barryvdh/laravel-debugbar --dev
 link web: https://github.com/livewire/sortable
 --livewire sortable: để kéo thả sắp xếp thứ tự các hàng---
 
+--sử dụng npm run dev để mix (để sử dụng bootstrap.js trong resource/js/bootstrap.js)
+    npm install
+    npm install admin-lte@^3.2 --save
+    npm run dev
+    npm run watch
+    vào trong webpack.mix.js để khai báo thêm các file
+--sử dụng npm run dev để mix
+
+-- phân trang sử dụng tailwind
+    php artisan livewire:publish --pagination
+
+-- phân trang sử dụng bootstrap
+
