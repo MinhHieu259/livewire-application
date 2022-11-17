@@ -11,6 +11,7 @@ load-awesome
 
 --- thêm provider để custom layout admin
     php artisan make:provider BladeComponentServiceProvider
+    vào config/app.php để khai báo Provider
 --- thêm provider để custom layout admin
 
 ---login vs fortify---
