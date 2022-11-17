@@ -9,6 +9,10 @@ alpine: để sử dụng các thẻ x-data, x-show
 
 load-awesome
 
+--- thêm provider để custom layout admin
+    php artisan make:provider BladeComponentServiceProvider
+--- thêm provider để custom layout admin
+
 ---login vs fortify---
 login dung package Fortify: composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
